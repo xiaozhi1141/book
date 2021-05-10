@@ -1,46 +1,44 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>尚硅谷会员注册页面</title>
-	<base href="http://localhost:8088/book/">
-<!--	写base标签永远固定相对路径跳转的结果     -->
-<link type="text/css" rel="stylesheet" href="static/css/style.css" >
-	<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
+	<%@ include file="/pages/common/head.jsp"%>
 	<script type="text/javascript">
 		$(function () {
 			$("#sub_btn").click(function () {
 				var username = $("#username").val();
 				var usernameP = /^\w{5,12}$/
 				if(!usernameP.test(username)){
-					$(".errorMsg").html("用户名不合法")
+					$(".errorMsg").jsp("用户名不合法")
 					return false;
 				}
 				var passwordP= /^\w{5,12}$/
 				var password = $("#password").val();
 				if(!passwordP.test(password)){
-					$(".errorMsg").html("密码不合法")
+					$(".errorMsg").jsp("密码不合法")
 					return false;
 				}
 				var repwd = $("#repwd").val();
 				if (repwd != password){
-					$(".errorMsg").html("两次密码不一致")
+					$(".errorMsg").jsp("两次密码不一致")
 					return false;
 				}
 				var email = $("#email").val();
 				var emaliP = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
 				if(!emaliP.test(email)){
-					$(".errorMsg").html("邮箱不合法")
+					$(".errorMsg").jsp("邮箱不合法")
 					return false;
 				}
 				var code = $("#code").val()
 				code = $.trim(code);
 				if(code==null || code==""){
-					$(".errorMsg").html("验证码错误")
+					$(".errorMsg").jsp("验证码错误")
 					return false;
 				}
 
-				$(".errorMsg").html("")
+				$(".errorMsg").jsp("")
 			})
 		})
 
@@ -103,10 +101,6 @@
 					</div>
 				</div>
 			</div>
-		<div id="bottom">
-			<span>
-				尚硅谷书城.Copyright &copy;2015
-			</span>
-		</div>
+		<%@ include file="/pages/common/footer.jsp"%>
 </body>
 </html>
