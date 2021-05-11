@@ -11,34 +11,34 @@
 				var username = $("#username").val();
 				var usernameP = /^\w{5,12}$/
 				if(!usernameP.test(username)){
-					$(".errorMsg").jsp("用户名不合法")
+					$(".errorMsg").html("用户名不合法")
 					return false;
 				}
 				var passwordP= /^\w{5,12}$/
 				var password = $("#password").val();
 				if(!passwordP.test(password)){
-					$(".errorMsg").jsp("密码不合法")
+					$(".errorMsg").html("密码不合法")
 					return false;
 				}
 				var repwd = $("#repwd").val();
 				if (repwd != password){
-					$(".errorMsg").jsp("两次密码不一致")
+					$(".errorMsg").html("两次密码不一致")
 					return false;
 				}
 				var email = $("#email").val();
 				var emaliP = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
 				if(!emaliP.test(email)){
-					$(".errorMsg").jsp("邮箱不合法")
+					$(".errorMsg").html("邮箱不合法")
 					return false;
 				}
 				var code = $("#code").val()
 				code = $.trim(code);
 				if(code==null || code==""){
-					$(".errorMsg").jsp("验证码错误")
+					$(".errorMsg").html("验证码错误")
 					return false;
 				}
 
-				$(".errorMsg").jsp("")
+				$(".errorMsg").html("")
 			})
 		})
 
@@ -67,13 +67,14 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>注册尚硅谷会员</h1>
-								<span class="errorMsg" >${requestScope.msg==null?"":requestScope.msg}</span>
+								<span class="errorMsg" >${requestScope.msg}</span>
 							</div>
 							<div class="form">
-								<form action="registServlet" method="post">
+								<form action="userServlet" method="post">
+									<input type="hidden" name="action" value="regist">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username" id="username"
-										   value="${requestScope.username==null?"":requestScope.username}"/>
+										   value="${requestScope.username}"/>
 									<br />
 									<br />
 									<label>用户密码：</label>
@@ -86,7 +87,7 @@
 									<br />
 									<label>电子邮件：</label>
 									<input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off" tabindex="1" name="email" id="email"
-										   value="${requestScope.email==null?"":requestScope.email}"/>
+										   value="${requestScope.email}"/>
 									<br />
 									<br />
 									<label>验证码：</label>

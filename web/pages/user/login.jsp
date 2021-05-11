@@ -23,19 +23,20 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>尚硅谷会员</h1>
-								<a href="regist.jsp">立即注册</a>
+								<a href="pages/user/regist.jsp">立即注册</a>
 							</div>
 							<div class="msg_cont">
 								<b></b>
 								<span class="errorMsg">
-									${requestScope.msg==null?"请输入用户名和密码":requestScope.msg}
+									${empty requestScope.msg?"请输入用户名和密码":requestScope.msg}
 								</span>
 							</div>
 							<div class="form">
-								<form action="loginServlet" method="post">
+								<form action="userServlet" method="post">
+									<input type="hidden" name="action" value="login">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username"
-									value="${requestScope.username==null?"":requestScope.username}"/>
+									value="${requestScope.username}"/>
 									<br />
 									<br />
 									<label>用户密码：</label>

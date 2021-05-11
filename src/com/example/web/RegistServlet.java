@@ -13,10 +13,6 @@ import java.io.IOException;
 
 public class RegistServlet extends HttpServlet {
     private UserService userService = new UserServiceImpl();
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("11111111");
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
