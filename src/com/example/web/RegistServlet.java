@@ -28,7 +28,9 @@ public class RegistServlet extends HttpServlet {
         //equalsIgnoreCase忽略大小写
         if("abcd".equalsIgnoreCase(code)){
             if(userService.existsUsername(username)){
-                System.out.println("用户名["+username+"]已存在");
+                request.setAttribute("msg","用户名已存在！");
+                request.setAttribute("username",username);
+                request.setAttribute("email",email);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/user/regist.jsp");
                 requestDispatcher.forward(request,response);
             } else{
@@ -39,7 +41,9 @@ public class RegistServlet extends HttpServlet {
             }
 
         } else{
-            System.out.println("验证码["+code+"]错误");
+            request.setAttribute("msg","验证码错误！");
+            request.setAttribute("username",username);
+            request.setAttribute("email",email);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/pages/user/regist.jsp");
             requestDispatcher.forward(request,response);
         }

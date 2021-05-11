@@ -67,28 +67,30 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>注册尚硅谷会员</h1>
-								<span class="errorMsg"></span>
+								<span class="errorMsg" >${requestScope.msg==null?"":requestScope.msg}</span>
 							</div>
 							<div class="form">
 								<form action="registServlet" method="post">
 									<label>用户名称：</label>
-									<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username" id="username" value="javaweb"/>
+									<input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1" name="username" id="username"
+										   value="${requestScope.username==null?"":requestScope.username}"/>
 									<br />
 									<br />
 									<label>用户密码：</label>
-									<input class="itxt" type="password" placeholder="请输入密码" autocomplete="off" tabindex="1" name="password" id="password" value="123456"/>
+									<input class="itxt" type="password" placeholder="请输入密码" autocomplete="off" tabindex="1" name="password" id="password" />
 									<br />
 									<br />
 									<label>确认密码：</label>
-									<input class="itxt" type="password" placeholder="确认密码" autocomplete="off" tabindex="1" name="repwd" id="repwd" value="123456"/>
+									<input class="itxt" type="password" placeholder="确认密码" autocomplete="off" tabindex="1" name="repwd" id="repwd" />
 									<br />
 									<br />
 									<label>电子邮件：</label>
-									<input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off" tabindex="1" name="email" id="email" value="javaweb@qq.com"/>
+									<input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off" tabindex="1" name="email" id="email"
+										   value="${requestScope.email==null?"":requestScope.email}"/>
 									<br />
 									<br />
 									<label>验证码：</label>
-									<input class="itxt" type="text" style="width: 150px;" name="code" id="code" value="abcd"/>
+									<input class="itxt" type="text" style="width: 150px;" name="code" id="code" />
 									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
 									<br />
 									<br />
