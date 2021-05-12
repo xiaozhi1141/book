@@ -41,6 +41,7 @@ public class UserServlet extends BaseServlet {
                 System.out.println();
                 req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req,resp);
             }
+            
 
         } else{
             req.setAttribute("msg","验证码错误！");
