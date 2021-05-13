@@ -1,6 +1,7 @@
 package com.example.test;
 
 import com.example.pojo.Book;
+import com.example.pojo.Page;
 import com.example.service.BookService;
 import com.example.service.impl.BookServiceImpl;
 import org.junit.Test;
@@ -39,5 +40,10 @@ public class BookServiceTest {
         for (Book book : books) {
             System.out.println(book);
         }
+    }
+    @Test
+    public void page() {
+        Page<Book> page = bookService.page(1,Page.PAGE_SIZE);
+        System.out.println(page);
     }
 }

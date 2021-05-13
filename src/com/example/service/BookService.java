@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.pojo.Book;
+import com.example.pojo.Page;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface BookService {
     Book queryBookById(Integer id);
 
     List<Book> queryBooks();
+
+    Page<Book> page(int pageNo, int pageSize);
 }
