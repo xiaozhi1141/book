@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>尚硅谷会员注册页面</title>
+<title>会员注册页面</title>
 	<%@ include file="/pages/common/head.jsp"%>
 <style type="text/css">
 	h1 {
@@ -18,7 +18,7 @@
 </head>
 <body>
 		<div id="header">
-				<img class="logo_img" alt="" src="static/img/logo.gif" >
+				<img class="logo_img" alt="" src="static/img/logo.jpg" >
 				<span class="wel_word"></span>
 <%--			静态包含登陆成功后的状态--%>
 				<%@ include file="/pages/common/login_sucess_menu.jsp"%>

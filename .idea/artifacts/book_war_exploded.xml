@@ -9,6 +9,7 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="booklib" />
+          <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/kaptcha-2.3.2.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="book/web/Web" />

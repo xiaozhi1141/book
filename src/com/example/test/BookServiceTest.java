@@ -46,4 +46,9 @@ public class BookServiceTest {
         Page<Book> page = bookService.page(1,Page.PAGE_SIZE);
         System.out.println(page);
     }
+    @Test
+    public void pageByPrice() {
+        Page<Book> page = bookService.pageByPrice(1,Page.PAGE_SIZE,10,50);
+        System.out.println(page);
+    }
 }

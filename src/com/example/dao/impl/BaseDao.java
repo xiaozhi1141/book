@@ -12,18 +12,24 @@ import java.util.List;
 
 public abstract class BaseDao {
     //使用dbutils进行数据库的操作
-        private QueryRunner queryRunner = new QueryRunner();
-        public int update(String sql,Object...args){
-            Connection connection = JdbcUtils.getConnection();
-            try {
-                return queryRunner.update(connection,sql,args);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                JdbcUtils.close(connection);
-            }
-            return -1;
+
+    private QueryRunner queryRunner = new QueryRunner();
+
+    /**
+     * 修改表操作
+     * @param sql
+     * @param args
+     * @return 如果为-1则操作失败，否则返回影响行数
+     */
+    public int update(String sql,Object...args){
+        Connection connection = JdbcUtils.getConnection();
+        try {
+            return queryRunner.update(connection,sql,args);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
+    }
     /**
      *  查寻返回一个javabean的sql语句
      *  type:返回类型
@@ -33,17 +39,15 @@ public abstract class BaseDao {
      */
 
 
-        public <T> T queryForOne(Class<T> type,String sql,Object...args){
-            Connection connection = JdbcUtils.getConnection();
-            try {
-               return queryRunner.query(connection,sql,new BeanHandler<T>(type),args);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                JdbcUtils.close(connection);
-            }
-            return null;
+    public <T> T queryForOne(Class<T> type,String sql,Object...args){
+        Connection connection = JdbcUtils.getConnection();
+        try {
+            return queryRunner.query(connection,sql,new BeanHandler<T>(type),args);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
+    }
     /**
      *  查寻返回多个javabean的sql语句
      *  type:返回类型
@@ -52,17 +56,15 @@ public abstract class BaseDao {
      *  <T> :返回的类型的泛型
      */
 
-        public  <T>List<T> queryForList(Class<T> type,String sql,Object...args){
-            Connection connection = JdbcUtils.getConnection();
-            try {
-                return queryRunner.query(connection,sql,new BeanListHandler<T>(type),args);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                JdbcUtils.close(connection);
-            }
-            return null;
+    public  <T>List<T> queryForList(Class<T> type,String sql,Object...args){
+        Connection connection = JdbcUtils.getConnection();
+        try {
+            return queryRunner.query(connection,sql,new BeanListHandler<T>(type),args);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
         }
+    }
 
     /**
      *  返回单个值的情况
@@ -70,15 +72,13 @@ public abstract class BaseDao {
      *  args:sql的参数
      */
 
-      public Object queryForSingleValue(String sql,Object...args){
-          Connection connection = JdbcUtils.getConnection();
-          try {
-              return queryRunner.query(connection,sql,new ScalarHandler(),args);
-          } catch (SQLException throwables) {
-              throwables.printStackTrace();
-          }finally {
-              JdbcUtils.close(connection);
-          }
-          return null;
-      }
+    public Object queryForSingleValue(String sql,Object...args){
+        Connection connection = JdbcUtils.getConnection();
+        try {
+            return queryRunner.query(connection,sql,new ScalarHandler(),args);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            throw new RuntimeException(throwables);
+        }
+    }
 }

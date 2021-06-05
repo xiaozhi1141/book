@@ -6,47 +6,104 @@
 <meta charset="UTF-8">
 <title>书城首页</title>
 	<%@ include file="/pages/common/head.jsp"%>
+	<script type="text/javascript">
+		$(function () {
+			//给加入购物车按钮绑定单击事件
+			$("button.addToCart").click(function () {
+				var bookId = $(this).attr("bookId")
+				<%--location.href = "${basePath}carServlet?action=addItem&id="+bookId;--%>
+
+				//发ajax请求，添加商品到购物车
+				$.getJSON("${basePath}carServlet","action=ajaxAddItem&id=" + bookId,function (date) {
+
+						$("#cartTotalCount").text("您的购物车中有"+date.totalCount+"件商品");
+						$(".cartLastName").text(date.lastName);
+				})
+			})
+		});
+	</script>
+    <style>
+        .sp2,sp1{
+            width: 200px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            display: inline-block;
+        }
+        .sp1{
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 
 	<div id="header">
-			<img class="logo_img" alt="" src="static/img/logo.gif" >
+			<img class="logo_img" alt="" src="static/img/logo.jpg" >
 			<span class="wel_word">网上书城</span>
 			<div>
-				<a href="pages/user/login.jsp">登录</a>
-				<a href="pages/user/regist.jsp">注册</a> &nbsp;&nbsp;
+
+				<c:if test="${empty sessionScope.user}">
+					<a href="pages/user/login.jsp">登录</a>
+					<a href="pages/user/regist.jsp">注册</a> &nbsp;&nbsp;
+				</c:if>
+				<%--如果已经登陆，则显示[登陆成功之后的用户信息] --%>
+				<c:if test="${not empty sessionScope.user}" >
+					<span>欢迎<span class="um_span">${sessionScope.user.username}</span>光临书城</span>
+					<a href="orderServlet?action=showMyOrders">我的订单</a>
+					<a href="userServlet?action=logout">注销</a>&nbsp;
+					<a href="index.jsp">返回</a>
+				</c:if>
 				<a href="pages/cart/cart.jsp">购物车</a>
 				<a href="pages/manager/manager.jsp">后台管理</a>
+
 			</div>
 	</div>
 	<div id="main">
 		<div id="book">
 			<div class="book_cond">
-				<form action="" method="get">
-					价格：<input id="min" type="text" name="min" value=""> 元 -
-						<input id="max" type="text" name="max" value=""> 元
+				<form action="client/BookServlet" method="get">
+					<input type="hidden" name="action" value="pageByPrice">
+					价格：<input id="min" type="text" name="min" value="${param.min}"> 元 -
+						<input id="max" type="text" name="max" value="${param.max}"> 元
 						<input type="submit" value="查询" />
 				</form>
 			</div>
 			<div style="text-align: center">
-				<span>您的购物车中有3件商品</span>
-				<div>
-					您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
-				</div>
+			<%--购物车为空输出--%>
+				<c:if test="${empty sessionScope.cart.items}">
+					<span id="cartTotalCount"></span>
+					<div >
+						<span style="color: red" class="cartLastName">当前购物车为空</span>
+					</div>
+				</c:if>
+            <%--购物车非空输出--%>
+				<c:if test="${not empty sessionScope.cart.items}">
+					<span id="cartTotalCount">您的购物车中有${sessionScope.cart.totalCount}件商品</span>
+					<div id="div3">
+						您刚刚将<span style="color: red" class="cartLastName">${sessionScope.lastName}</span>加入到了购物车中
+					</div>
+				</c:if>
 			</div>
             <c:forEach items="${requestScope.page.items}" var="book">
 			<div class="b_list">
 				<div class="img_div">
-					<img class="book_img" alt="" src="static/img/default.jpg" />
+					<img class="book_img" alt="" src="${book.imgPath}" />
 				</div>
 				<div class="book_info">
 					<div class="book_name">
+                        <nobr>
 						<span class="sp1">书名:</span>
 						<span class="sp2">${book.name}</span>
+                        </nobr>
 					</div>
 					<div class="book_author">
+                        <nobr>
 						<span class="sp1">作者:</span>
 						<span class="sp2">${book.author}</span>
+                        </nobr>
 					</div>
 					<div class="book_price">
 						<span class="sp1">价格:</span>
@@ -61,7 +118,7 @@
 						<span class="sp2">${book.stock}</span>
 					</div>
 					<div class="book_add">
-						<button>加入购物车</button>
+						<button bookId="${book.id}" class="addToCart">加入购物车</button>
 					</div>
 				</div>
 			</div>
@@ -69,64 +126,8 @@
 		</div>
 
 		<%--		分页条的开始--%>
-		<div id="page_nav">
-			<%--			大于首页才显示--%>
-			<c:if test="${requestScope.page.pageNo > 1}">
-				<a href="client/BookServlet?action=page&pageNo=1">首页</a>
-				<a href="client/BookServlet?action=page&pageNo=${requestScope.page.pageNo-1}">上一页</a>
-			</c:if>
-			<%--	页码输出的开始--%>
-			<c:choose>
-				<%--		情况1:页码数小于等于5的情况，1-总页码--%>
-				<c:when test="${requestScope.page.pageTotal <= 5}">
-					<c:set var="begin" value="1"/>
-					<c:set var="end" value="${requestScope.page.pageTotal}"/>
-				</c:when>
-				<c:when test="${requestScope.page.pageTotal > 5}">
-					<c:choose>
-						<c:when test="${requestScope.page.pageNo <= 3}">
-							<c:set var="begin" value="1"/>
-							<c:set var="end" value="5"/>
-						</c:when>
-						<c:when test="${requestScope.page.pageNo > requestScope.page.pageTotal-3}">
-							<c:set var="begin" value="${requestScope.page.pageTotal-4}" />
-							<c:set var="end" value="${requestScope.page.pageTotal}" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="begin" value="${requestScope.page.pageNo-2}" />
-							<c:set var="end" value="${requestScope.page.pageNo+2}" />
-						</c:otherwise>
-					</c:choose>
-				</c:when>
-			</c:choose>
-			<c:forEach begin="${begin}" end="${end}" var="i">
-				<c:if test="${i==requestScope.page.pageNo}">
-					【${i}】
-				</c:if>
-				<c:if test="${i!=requestScope.page.pageNo}">
-					<a href="client/BookServlet?action=page&pageNo=${i}">${i}</a>
-				</c:if>
-			</c:forEach>
-
-
-
-			<%--	页码输出的结束--%>
-			<c:if test="${requestScope.page.pageNo < requestScope.page.pageTotal}">
-				<a href="client/BookServlet?action=page&pageNo=${requestScope.page.pageNo+1}">下一页</a>
-				<a href="client/BookServlet?action=page&pageNo=${requestScope.page.pageTotal}">末页</a>
-			</c:if>
-			共${requestScope.page.pageTotal}页，${requestScope.page.pageTotalCount}条记录
-			到第<input value="${param.pageNo}" name="pn" id="pn_input"/>页
-			<input id="searchPageBtn" type="button" value="确定">
-			<script type="text/javascript">
-				$(function () {
-					$("#searchPageBtn").click(function () {
-						var pageNo = $("#pn_input").val();
-						location.href = "${pageScope.basePath}client/BookServlet?action=page&pageNo="+pageNo;
-					})
-				})
-			</script>
-		</div>
+		<%--	静态包含分页条--%>
+		<%@include file="/pages/common/page_nav.jsp"%>
 		<%--	     分页条的结束--%>
 
 	</div>

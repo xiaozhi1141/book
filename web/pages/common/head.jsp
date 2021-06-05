@@ -14,3 +14,8 @@
 <!--	写base标签永远固定相对路径跳转的结果     -->
 <link type="text/css" rel="stylesheet" href="static/css/style.css" >
 <script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>

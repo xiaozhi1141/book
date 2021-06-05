@@ -13,10 +13,19 @@ import java.util.List;
 
 public class BookServlet extends BaseServlet{
     BookService bookService = new BookServiceImpl();
+
+    /**
+     * 处理分页功能
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void page(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
         int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
         Page<Book> page = bookService.page(pageNo,pageSize);
+        page.setUrl("manager/BookServlet?action=page");
         req.setAttribute("page",page);
         req.getRequestDispatcher("/pages/manager/book_manager.jsp").forward(req,resp);
     }
