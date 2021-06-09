@@ -18,7 +18,7 @@
 </head>
 <body>
 		<div id="header">
-				<img class="logo_img" alt="" src="../../static/img/logo.jpg" >
+				<img class="logo_img" alt="" src="static/img/logo.jpg" >
 			<%@ include file="/pages/common/login_sucess_menu.jsp"%>
 		</div>
 		

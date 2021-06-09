@@ -52,6 +52,14 @@
         <servlet-name>OrderServlet</servlet-name>
         <url-pattern>/orderServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>OrderServletG</servlet-name>
+        <servlet-class>com.example.web.OrderServletG</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderServletG</servlet-name>
+        <url-pattern>/manager/orderServletG</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>MangerFilter</filter-name>
         <filter-class>com.example.filter.ManagerFilter</filter-class>
@@ -60,6 +68,7 @@
         <filter-name>MangerFilter</filter-name>
         <url-pattern>/pages/manager/*</url-pattern>
         <url-pattern>/manager/BookServlet</url-pattern>
+        <url-pattern>/manager/orderServletG</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>TransactionFilter</filter-name>
@@ -85,4 +94,5 @@
         <!--        location标签表示要跳转去的页面路径-->
         <location>/pages/error/error404.jsp</location>
     </error-page>
+
 </web-app>

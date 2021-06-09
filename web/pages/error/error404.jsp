@@ -8,10 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>404</title>
+    <%@ include file="/pages/common/head.jsp"%>
 </head>
 <body>
-很抱歉，你访问的页面丢失了！！！ <br>
-<a href="index.jsp">返回首页</a>
+<div style="text-align: center;">
+    很抱歉，你访问的页面丢失了！！！ <br>
+    <a href="index.jsp" style="color:royalblue;">返回首页</a>
+</div>
 </body>
 </html>

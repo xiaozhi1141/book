@@ -1,5 +1,7 @@
 package com.example.filter;
 
+import com.example.pojo.User;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +16,12 @@ public class ManagerFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        Object user = httpServletRequest.getSession().getAttribute("user");
-        if(user == null){
+        User user = (User) httpServletRequest.getSession().getAttribute("user");
+        if(user == null ){
             httpServletRequest.getRequestDispatcher("/pages/user/login.jsp").forward(servletRequest,servletResponse);
-        } else {
+        } else if( !user.getUsername().equals("root")) {
+            httpServletRequest.getRequestDispatcher("/pages/error/error_Wqx.jsp").forward(servletRequest,servletResponse);
+        } else{
             filterChain.doFilter(servletRequest,servletResponse);
         }
 

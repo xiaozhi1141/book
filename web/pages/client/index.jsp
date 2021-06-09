@@ -40,7 +40,7 @@
 </head>
 <body>
 
-	<div id="header">
+	<div id="header" >
 			<img class="logo_img" alt="" src="static/img/logo.jpg" >
 			<span class="wel_word">网上书城</span>
 			<div>
@@ -64,6 +64,12 @@
 	<div id="main">
 		<div id="book">
 			<div class="book_cond">
+				<div align="right">
+					<a href="client/BookServlet?action=page" style="color: cornflowerblue">全部</a>
+					<a href="client/BookServlet?action=pageByCategory&category=铁路" style="color: cornflowerblue">铁路</a>
+					<a href="client/BookServlet?action=pageByCategory&category=教材" style="color: cornflowerblue">教材</a>
+					<a href="client/BookServlet?action=pageByCategory&category=大众" style="color: cornflowerblue">大众</a>
+				</div>
 				<form action="client/BookServlet" method="get">
 					<input type="hidden" name="action" value="pageByPrice">
 					价格：<input id="min" type="text" name="min" value="${param.min}"> 元 -

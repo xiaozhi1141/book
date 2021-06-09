@@ -1,6 +1,9 @@
 package com.example.web;
 
+import com.example.dao.UserIpDao;
+import com.example.dao.impl.UserIpDaoImpl;
 import com.example.pojo.User;
+import com.example.pojo.UserIp;
 import com.example.service.UserService;
 import com.example.service.impl.UserServiceImpl;
 import com.google.gson.Gson;
@@ -19,6 +22,7 @@ import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 public class UserServlet extends BaseServlet {
     private UserService userService = new UserServiceImpl();
+    private UserIpDao userIpDao = new UserIpDaoImpl();
 
     /**
      * 注销
@@ -40,6 +44,7 @@ public class UserServlet extends BaseServlet {
         } else{
             //保存用户登陆之后的信息到Session域中
             req.getSession().setAttribute("user",userService.login(user));
+            userIpDao.createUserIp(new UserIp(null,userService.login(user).getId(),req.getRemoteHost(),null));
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
 
         }
@@ -61,7 +66,7 @@ public class UserServlet extends BaseServlet {
             } else{
                 userService.registUser(user);
                 req.getSession().setAttribute("user",userService.login(user));
-                System.out.println();
+                userIpDao.createUserIp(new UserIp(null,userService.login(user).getId(),req.getRemoteHost(),null));
                 req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req,resp);
             }
             

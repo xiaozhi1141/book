@@ -15,7 +15,7 @@ public class BookDaoTest {
 
     @Test
     public void addBook() {
-        System.out.println(bookDao.addBook(new Book(null,"mysql","mysql",new BigDecimal(56.7),100,100,null)));
+        System.out.println(bookDao.addBook(new Book(null,"mysql","mysql",new BigDecimal(56.7),100,100,null,"计算机")));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class BookDaoTest {
 
     @Test
     public void updateBook() {
-        bookDao.updateBook(new Book(22,"mysql","mysql",new BigDecimal(56.7),120,120,null));
+        bookDao.updateBook(new Book(22,"mysql","mysql",new BigDecimal(56.7),120,120,null,"计算机"));
     }
 
     @Test
@@ -61,6 +61,16 @@ public class BookDaoTest {
         for (Book queryPageItem : bookDao.queryPageItemsByPrice(0, 4,10,50)) {
             System.out.println(queryPageItem);
         }
+    }
+    @Test
+    public void queryPageItemsByCategory() {
+        for (Book queryPageItem : bookDao.queryPageItemsByCategory(0, 4, "铁路")) {
+            System.out.println(queryPageItem);
+        }
+    }
+    @Test
+    public void pageByCategory(){
+        System.out.println(bookDao.queryPageTotalCountByCategory("铁路"));
     }
 
 

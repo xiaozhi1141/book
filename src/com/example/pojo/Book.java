@@ -10,17 +10,19 @@ public class Book {
     private Integer sales;
     private Integer stock;
     private String imgPath = "static/img/logo.gif";
+    private String category;
 
     public Book() {
     }
 
-    public Book(Integer id, String name, String author, BigDecimal price, Integer sales, Integer stock, String imgPath) {
+    public Book(Integer id, String name, String author, BigDecimal price, Integer sales, Integer stock, String imgPath,String category) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.price = price;
         this.sales = sales;
         this.stock = stock;
+        this.category = category;
         if(imgPath != null && !"".equals(imgPath))
         {
             this.imgPath = imgPath;
@@ -85,6 +87,14 @@ public class Book {
         {
             this.imgPath = imgPath;
         }
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override

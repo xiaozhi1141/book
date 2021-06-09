@@ -16,7 +16,7 @@ public class BookServiceTest {
 
     @Test
     public void addBook() {
-        bookService.addBook(new Book(null,"python","python",new BigDecimal(76.88),12,24,null));
+        bookService.addBook(new Book(null,"python","python",new BigDecimal(76.88),12,24,null,"计算机"));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class BookServiceTest {
 
     @Test
     public void updateBook() {
-        bookService.updateBook(new Book(24,"java","java",new BigDecimal(76.88),12,24,null));
+        bookService.updateBook(new Book(24,"java","java",new BigDecimal(76.88),12,24,null,"计算机"));
     }
 
     @Test

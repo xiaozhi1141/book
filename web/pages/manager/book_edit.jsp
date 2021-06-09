@@ -39,7 +39,8 @@
 						<td>作者</td>
 						<td>销量</td>
 						<td>库存</td>
-						<td colspan="2">操作</td>
+						<td>类别</td>
+						<td>操作</td>
 					</tr>		
 					<tr>
 						<td><input name="name" type="text" value="${requestScope.book.name}"/></td>
@@ -47,6 +48,7 @@
 						<td><input name="author" type="text" value="${requestScope.book.author}"/></td>
 						<td><input name="sales" type="text" value="${requestScope.book.sales}"/></td>
 						<td><input name="stock" type="text" value="${requestScope.book.stock}"/></td>
+						<td><input name="sales" type="text" value="${requestScope.book.category}"/></td>
 						<td><input type="submit" value="提交"/></td>
 					</tr>	
 				</table>

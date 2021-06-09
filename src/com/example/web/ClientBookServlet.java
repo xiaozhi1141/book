@@ -45,4 +45,16 @@ public class ClientBookServlet extends BaseServlet{
         req.setAttribute("page",page);
         req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
     }
+
+    protected void pageByCategory(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int pageNo = WebUtils.parseInt(req.getParameter("pageNo"),1);
+        int pageSize = WebUtils.parseInt(req.getParameter("pageSize"), Page.PAGE_SIZE);
+        String category = req.getParameter("category");
+        Page<Book> page = bookService.pageByCategory(pageNo,pageSize,category);
+        StringBuilder stringBuilder = new StringBuilder("client/BookServlet?action=pageByPrice");
+        stringBuilder.append("&category=").append(req.getParameter("category"));
+        page.setUrl(stringBuilder.toString());
+        req.setAttribute("page",page);
+        req.getRequestDispatcher("/pages/client/index.jsp").forward(req,resp);
+    }
 }

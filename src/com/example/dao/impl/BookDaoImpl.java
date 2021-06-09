@@ -8,8 +8,8 @@ import java.util.List;
 public class BookDaoImpl extends BaseDao  implements BookDao {
     @Override
     public int addBook(Book book) {
-        String sql = "insert into t_book(name,author,price,sales,stock,img_path) values(?,?,?,?,?,?)";
-        return update(sql,book.getName(),book.getAuthor(),book.getPrice(),book.getSales(),book.getStock(),book.getImgPath());
+        String sql = "insert into t_book(name,author,price,sales,stock,img_path,category) values(?,?,?,?,?,?,?)";
+        return update(sql,book.getName(),book.getAuthor(),book.getPrice(),book.getSales(),book.getStock(),book.getImgPath(),book.getCategory());
     }
 
     @Override
@@ -20,13 +20,13 @@ public class BookDaoImpl extends BaseDao  implements BookDao {
 
     @Override
     public int updateBook(Book book) {
-        String sql = "update t_book set name=?,author=?,price=?,sales=?,stock=?,img_path=? where id=?";
-        return update(sql,book.getName(),book.getAuthor(),book.getPrice(),book.getSales(),book.getStock(),book.getImgPath(),book.getId());
+        String sql = "update t_book set name=?,author=?,price=?,sales=?,stock=?,img_path=?,category=? where id=?";
+        return update(sql,book.getName(),book.getAuthor(),book.getPrice(),book.getSales(),book.getStock(),book.getImgPath(),book.getCategory(),book.getId());
     }
 
     @Override
     public Book queryBookById(Integer id) {
-        String sql = "select id,name,author,price,sales,stock,img_path imgPath from t_book where id=?";
+        String sql = "select id,name,author,price,sales,stock,img_path imgPath,category from t_book where id=?";
         return queryForOne(Book.class,sql,id);
     }
 
@@ -60,5 +60,18 @@ public class BookDaoImpl extends BaseDao  implements BookDao {
     public List<Book> queryPageItemsByPrice(int begin, int pageSize, int min, int max) {
         String sql = "select id,name,author,price,sales,stock,img_path imgPath from t_book where price between ? and ? order by price limit ?,?";
         return queryForList(Book.class, sql, min,max,begin, pageSize);
+    }
+
+    @Override
+    public List<Book> queryPageItemsByCategory(int begin, int pageSize, String category) {
+        String sql = "select id,name,author,price,sales,stock,img_path imgPath from t_book where category=? limit ?,?";
+        return queryForList(Book.class, sql, category,begin, pageSize);
+    }
+
+    @Override
+    public Integer queryPageTotalCountByCategory(String category) {
+        String sql = "select count(*) from t_book where category=?";
+        Number count = (Number) queryForSingleValue(sql,category);
+        return count.intValue();
     }
 }
