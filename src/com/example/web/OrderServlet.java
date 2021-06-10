@@ -19,7 +19,7 @@ public class OrderServlet extends BaseServlet{
     public static String ip;
 
     /**
-     * 生成订单
+     * 生成订单（主要用来判断用户有没有登陆）
      * @param req
      * @param resp
      * @throws ServletException
@@ -27,24 +27,35 @@ public class OrderServlet extends BaseServlet{
      */
 
     protected void createOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //获取购物车对象
-        Cart cart = (Cart) req.getSession().getAttribute("cart");
-        //获取用户Id;
         User loginUser = (User) req.getSession().getAttribute("user");
         if(loginUser == null){
             req.getRequestDispatcher("pages/user/login.jsp").forward(req,resp);
             return;
         }
-        Integer userId = loginUser.getId();
-        req.getSession().setAttribute("totalPrice",cart.getTotalPrice());
-        //生成订单
-        String orderId = orderService.createOrder(cart, userId);
-        req.getSession().setAttribute("orderId",orderId);
-//        req.getRequestDispatcher("pages/cart/checkout.jsp").forward(req,resp);
         ip=req.getServerName();
         resp.sendRedirect(req.getContextPath()+"/alipay.trade.page.pay.jsp");
     }
 
+    /**
+     * 主要实现数据库订单生成操作
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void createOrderAfter(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取购物车对象
+         Cart cart = (Cart) req.getSession().getAttribute("cart");
+        //获取用户Id;
+        User loginUser = (User) req.getSession().getAttribute("user");
+
+        Integer userId = loginUser.getId();
+        //生成订单
+        String orderId = (String) req.getSession().getAttribute("orderId");
+        String orderId1 = orderService.createOrder(orderId,cart, userId);
+        ip=req.getServerName();
+        resp.sendRedirect(req.getContextPath()+"/pages/cart/checkout.jsp");
+    }
     /**
      * 查看所有订单
      * @param req

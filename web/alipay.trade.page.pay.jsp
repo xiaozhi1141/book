@@ -10,17 +10,30 @@
 <%@ page import="com.alipay.api.request.*"%>
 <%@ page import="com.example.pojo.Cart" %>
 <%@ page import="java.math.BigDecimal" %>
+<%@ page import="com.example.pojo.User" %>
+<%@ page import="com.example.service.OrderService" %>
+<%@ page import="com.example.service.impl.OrderServiceImpl" %>
 <%
-	//获得初始化的AlipayClient
+    OrderService orderService = new OrderServiceImpl();
+    Cart cart = (Cart) request.getSession().getAttribute("cart");
+    //获取用户Id;
+    User loginUser = (User) request.getSession().getAttribute("user");
+
+    BigDecimal totalPrice = cart.getTotalPrice();
+
+    String orderId = System.currentTimeMillis()+""+loginUser.getId();
+
+    request.getSession().setAttribute("orderId",orderId);
+
+    //获得初始化的AlipayClient
 	AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);
 	
 	//设置请求参数
 	AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
 	alipayRequest.setReturnUrl(AlipayConfig.return_url);
 	alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
-	BigDecimal totalPrice = (BigDecimal) request.getSession().getAttribute("totalPrice");
 	//商户订单号，商户网站订单系统中唯一订单号，必填
-	String out_trade_no = (String)request.getSession().getAttribute("orderId");
+	String out_trade_no = orderId;
 	//付款金额，必填
 	String total_amount = totalPrice.toString();
 	//订单名称，必填

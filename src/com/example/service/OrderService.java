@@ -7,7 +7,7 @@ import com.example.pojo.OrderItem;
 import java.util.List;
 
 public interface OrderService {
-    String createOrder(Cart cart,Integer userId);
+    String createOrder(String orderId,Cart cart,Integer userId);
     List<Order> showAllOrders();
     void sendOrder(String orderId);
     List<OrderItem> showOrderDetail(String orderId);

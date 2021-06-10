@@ -18,9 +18,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderItemDao orderItemDao = new OrderItemDaoImpl();
     private BookDao bookDao = new BookDaoImpl();
     @Override
-    public String createOrder(Cart cart, Integer userId) {
+    public String createOrder(String orderId,Cart cart, Integer userId) {
         //订单号唯一
-        String orderId = System.currentTimeMillis()+""+userId;
+        //String orderId = System.currentTimeMillis()+""+userId;
         Order order = new Order(orderId,cart.getTotalPrice(),0,userId);
         //保存订单
         orderDao.saveOrder(order);

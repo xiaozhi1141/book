@@ -19,6 +19,7 @@ public class OrderServiceTest {
         cart.addItem(new CartItem(1,"mysql",1,new BigDecimal(20),new BigDecimal(20)));
         cart.addItem(new CartItem(2,"mysql2",1,new BigDecimal(10),new BigDecimal(10)));
         OrderService orderService = new OrderServiceImpl();
-        System.out.println(orderService.createOrder(cart,1));
+        String orderId = System.currentTimeMillis()+""+"1";
+        System.out.println(orderService.createOrder(orderId,cart,1));
     }
 }

@@ -32,10 +32,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh9o3dP26iUqq4VQGdF5/GeoX1Q689NJrQsXqHpFUFuemU2OH9SxCi+2CBIz22Fh0XA6DlbKlq3Ob5zOZ4uWakFpvG9B1zPe3w5nXiWhq3fN+GdctOGx3zThtBPaQ8ki5OyBDYLLoCFhCtLlku96tQXlOxwhKbR3cTkptCCsfYtYIklzaiBaJOYNP4xckCkFkUeR4VHD+YQuR4lvPOnOjGewCGIxeaER40qb/OmaDHwp1eN+Mw/8/Ju9WVQxGzJVbHP8OVYxmFw3Ufe89EP9s9WY4QPw+qmVKyma9X9UHy8s3803sPnoUvtfJs93osXSHVUl5Myynb2b3PFDpea8zGQIDAQAB";
 
 	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://"+OrderServlet.ip+":8088/book/pages/cart/checkout.jsp";
+	public static String notify_url = "http://"+OrderServlet.ip+":8088/book/orderServlet?action=createOrderAfter";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://"+OrderServlet.ip+":8088/book/pages/cart/checkout.jsp";
+	public static String return_url = "http://"+OrderServlet.ip+":8088/book/orderServlet?action=createOrderAfter";
 	// 签名方式
 	public static String sign_type = "RSA2";
 	
