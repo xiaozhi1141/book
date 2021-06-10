@@ -16,6 +16,7 @@ import java.util.List;
 
 public class OrderServlet extends BaseServlet{
     private OrderService orderService = new OrderServiceImpl();
+    public static String ip;
 
     /**
      * 生成订单
@@ -35,11 +36,13 @@ public class OrderServlet extends BaseServlet{
             return;
         }
         Integer userId = loginUser.getId();
+        req.getSession().setAttribute("totalPrice",cart.getTotalPrice());
         //生成订单
         String orderId = orderService.createOrder(cart, userId);
         req.getSession().setAttribute("orderId",orderId);
 //        req.getRequestDispatcher("pages/cart/checkout.jsp").forward(req,resp);
-        resp.sendRedirect(req.getContextPath()+"/pages/cart/checkout.jsp");
+        ip=req.getServerName();
+        resp.sendRedirect(req.getContextPath()+"/alipay.trade.page.pay.jsp");
     }
 
     /**
