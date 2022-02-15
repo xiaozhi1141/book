@@ -5,11 +5,15 @@ import com.example.dao.impl.BookDaoImpl;
 import com.example.pojo.Book;
 import com.example.pojo.Page;
 import com.example.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BookServiceImpl implements BookService {
-    private BookDao bookDao = new BookDaoImpl();
+    @Autowired
+    private BookDao bookDao;
 
     @Override
     public void addBook(Book book) {

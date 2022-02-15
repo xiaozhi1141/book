@@ -8,15 +8,22 @@ import com.example.dao.impl.OrderDaoImpl;
 import com.example.dao.impl.OrderItemDaoImpl;
 import com.example.pojo.*;
 import com.example.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class OrderServiceImpl implements OrderService {
-    private OrderDao orderDao = new OrderDaoImpl();
-    private OrderItemDao orderItemDao = new OrderItemDaoImpl();
-    private BookDao bookDao = new BookDaoImpl();
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private OrderItemDao orderItemDao;
+    @Autowired
+    private BookDao bookDao;
     @Override
     public String createOrder(String orderId,Cart cart, Integer userId) {
         //订单号唯一
@@ -37,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
             book.setSales(book.getSales()+cartItem.getCount());
             book.setStock(book.getStock()-cartItem.getCount());
             bookDao.updateBook(book);
+//            int a = 2/0;
         }
         //清空购物车
         cart.clear();

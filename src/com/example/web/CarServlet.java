@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CarServlet extends BaseServlet {
-    private BookService bookService = new BookServiceImpl();
+    private BookService bookService = WebUtils.getBean(BookService.class);
     /**
      * 加入购物车
      * @param req

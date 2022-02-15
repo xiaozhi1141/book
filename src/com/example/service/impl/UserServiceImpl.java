@@ -4,9 +4,13 @@ import com.example.dao.UserDao;
 import com.example.dao.impl.UserDaoImpl;
 import com.example.pojo.User;
 import com.example.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
-   private UserDao Dao = new UserDaoImpl();
+    @Autowired
+   private UserDao Dao;
     @Override
     public void registUser(User user) {
         Dao.saveUser(user);

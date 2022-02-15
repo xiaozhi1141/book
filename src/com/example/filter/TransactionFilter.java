@@ -14,11 +14,9 @@ public class TransactionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         try {
-            filterChain.doFilter(servletRequest,servletResponse);
-            JdbcUtils.commitAndClose(); //提交事务
+
         } catch (Exception e) {
-            JdbcUtils.rollbackAndClose(); //回滚事务
-            e.printStackTrace();
+
             throw new RuntimeException(e); //把异常抛给tomcat管理展示错误页面
         }
     }

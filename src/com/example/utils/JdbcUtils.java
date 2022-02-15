@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
+@Deprecated
 public class JdbcUtils {
 
     private static DruidDataSource dataSource;

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class OrderServletG extends BaseServlet{
-    private OrderService orderService = new OrderServiceImpl();
+    private OrderService orderService = WebUtils.getBean(OrderService.class);
 
     /**
      * 查看所有订单

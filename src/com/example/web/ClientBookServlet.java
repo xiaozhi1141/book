@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ClientBookServlet extends BaseServlet{
-    BookService bookService = new BookServiceImpl();
+    private BookService bookService = WebUtils.getBean(BookService.class);
 
     /**
      * 处理分页对象

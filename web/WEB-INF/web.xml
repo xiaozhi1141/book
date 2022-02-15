@@ -11,6 +11,13 @@
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
     </servlet-mapping>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>BookServlet</servlet-name>
         <servlet-class>com.example.web.BookServlet</servlet-class>
@@ -70,15 +77,15 @@
         <url-pattern>/manager/BookServlet</url-pattern>
         <url-pattern>/manager/orderServletG</url-pattern>
     </filter-mapping>
-    <filter>
-        <filter-name>TransactionFilter</filter-name>
-        <filter-class>com.example.filter.TransactionFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>TransactionFilter</filter-name>
-<!--        /*表示当前工程下所有的请求-->
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>TransactionFilter</filter-name>-->
+<!--        <filter-class>com.example.filter.TransactionFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>TransactionFilter</filter-name>-->
+<!--&lt;!&ndash;        /*表示当前工程下所有的请求&ndash;&gt;-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
 
 <!--    error-page标签配置服务器出错之后，自动跳转的页面-->
     <error-page>

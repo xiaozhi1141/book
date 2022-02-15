@@ -5,6 +5,10 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,7 +17,9 @@ import java.util.List;
 public abstract class BaseDao {
     //使用dbutils进行数据库的操作
 
-    private QueryRunner queryRunner = new QueryRunner();
+//    private QueryRunner queryRunner = new QueryRunner();
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     /**
      * 修改表操作
@@ -22,13 +28,7 @@ public abstract class BaseDao {
      * @return 如果为-1则操作失败，否则返回影响行数
      */
     public int update(String sql,Object...args){
-        Connection connection = JdbcUtils.getConnection();
-        try {
-            return queryRunner.update(connection,sql,args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new RuntimeException(throwables);
-        }
+       return jdbcTemplate.update(sql,args);
     }
     /**
      *  查寻返回一个javabean的sql语句
@@ -40,13 +40,13 @@ public abstract class BaseDao {
 
 
     public <T> T queryForOne(Class<T> type,String sql,Object...args){
-        Connection connection = JdbcUtils.getConnection();
+        T object = null;
         try {
-            return queryRunner.query(connection,sql,new BeanHandler<T>(type),args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new RuntimeException(throwables);
+            object = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<T>(type), args);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
         }
+        return object;
     }
     /**
      *  查寻返回多个javabean的sql语句
@@ -57,13 +57,7 @@ public abstract class BaseDao {
      */
 
     public  <T>List<T> queryForList(Class<T> type,String sql,Object...args){
-        Connection connection = JdbcUtils.getConnection();
-        try {
-            return queryRunner.query(connection,sql,new BeanListHandler<T>(type),args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new RuntimeException(throwables);
-        }
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<T>(type), args);
     }
 
     /**
@@ -73,12 +67,6 @@ public abstract class BaseDao {
      */
 
     public Object queryForSingleValue(String sql,Object...args){
-        Connection connection = JdbcUtils.getConnection();
-        try {
-            return queryRunner.query(connection,sql,new ScalarHandler(),args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            throw new RuntimeException(throwables);
-        }
+        return jdbcTemplate.queryForObject(sql,Object.class,args);
     }
 }

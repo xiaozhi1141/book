@@ -12,6 +12,13 @@
         <sourceRoots />
       </configuration>
     </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring 应用程序上下文" removed="false">
+          <file>file://$MODULE_DIR$/src/applicationContext.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -51,5 +58,12 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
+    <orderEntry type="library" name="aopalliance-1.0" level="project" />
+    <orderEntry type="library" name="aopalliance-1.0 (2)" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2 (2)" level="project" />
+    <orderEntry type="library" name="spring-aop-5.2.3.RELEASE" level="project" />
+    <orderEntry type="library" name="c3p0-0.9.1.2" level="project" />
+    <orderEntry type="library" name="spring-web-5.2.9.RELEASE" level="project" />
   </component>
 </module>

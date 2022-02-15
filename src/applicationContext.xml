@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+        <context:component-scan base-package="com.example">
+
+        </context:component-scan>
+
+        <context:property-placeholder location="classpath:dbconfig.properties"></context:property-placeholder>
+        <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <property name="user" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
+                <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+                <property name="driverClass" value="${jdbc.driverClass}"></property>
+        </bean>
+        <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+                <property name="dataSource" ref="dataSource"></property>
+        </bean>
+
+        <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+                <property name="dataSource" ref="dataSource"></property>
+        </bean>
+        <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+        <aop:config>
+                <aop:pointcut id="txPoint" expression="execution(* com.example.service.impl.*.*(..))"/>
+                <aop:advisor advice-ref="myTx" pointcut-ref="txPoint"></aop:advisor>
+        </aop:config>
+        <tx:advice id="myTx" transaction-manager="transactionManager">
+                <tx:attributes>
+                        <tx:method name="*"/>
+                        <tx:method name="show*" read-only="true"/>
+                </tx:attributes>
+        </tx:advice>
+
+</beans>

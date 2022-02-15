@@ -2,7 +2,9 @@ package com.example.dao.impl;
 
 import com.example.dao.UserDao;
 import com.example.pojo.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserDaoImpl extends BaseDao implements UserDao {
     @Override
     public User queryUserByUsername(String username) {

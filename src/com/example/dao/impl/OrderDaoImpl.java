@@ -2,9 +2,11 @@ package com.example.dao.impl;
 
 import com.example.dao.OrderDao;
 import com.example.pojo.Order;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class OrderDaoImpl extends  BaseDao implements OrderDao {
     @Override
     public int saveOrder(Order order) {

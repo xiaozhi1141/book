@@ -21,8 +21,8 @@ import java.util.Map;
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
 public class UserServlet extends BaseServlet {
-    private UserService userService = new UserServiceImpl();
-    private UserIpDao userIpDao = new UserIpDaoImpl();
+    private UserService userService = WebUtils.getBean(UserService.class);
+    private UserIpDao userIpDao = WebUtils.getBean(UserIpDao.class);
 
     /**
      * 注销

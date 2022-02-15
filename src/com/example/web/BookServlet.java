@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class BookServlet extends BaseServlet{
-    BookService bookService = new BookServiceImpl();
+    private BookService bookService = WebUtils.getBean(BookService.class);
 
     /**
      * 处理分页功能

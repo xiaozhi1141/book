@@ -2,9 +2,11 @@ package com.example.dao.impl;
 
 import com.example.dao.BookDao;
 import com.example.pojo.Book;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class BookDaoImpl extends BaseDao  implements BookDao {
     @Override
     public int addBook(Book book) {

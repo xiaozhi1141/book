@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class OrderServlet extends BaseServlet{
-    private OrderService orderService = new OrderServiceImpl();
+    private OrderService orderService = WebUtils.getBean(OrderService.class);
     public static String ip;
 
     /**

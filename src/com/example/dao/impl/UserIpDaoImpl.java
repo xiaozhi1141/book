@@ -2,7 +2,9 @@ package com.example.dao.impl;
 
 import com.example.dao.UserIpDao;
 import com.example.pojo.UserIp;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserIpDaoImpl extends BaseDao implements UserIpDao {
     @Override
     public int createUserIp(UserIp userIp) {
