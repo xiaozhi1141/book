@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsz.dao.StudentDao">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap id="myStudent" type="com.hsz.bean.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="score" column="score"/>
+        <result property="birth" column="birth"/>
+        <result property="age" column="age"/>
+    </resultMap>
+    <select id="getStudentById" resultMap="myStudent">
+        select * from tbl_student where id = #{id}
+    </select>
+
+
+</mapper>

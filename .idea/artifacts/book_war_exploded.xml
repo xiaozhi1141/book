@@ -10,6 +10,11 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="booklib" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/lib/kaptcha-2.3.2.jar" />
+          <element id="library" level="project" name="spring-web-5.2.9.RELEASE" />
+          <element id="library" level="project" name="c3p0-0.9.1.2" />
+          <element id="library" level="project" name="aopalliance-1.0 (2)" />
+          <element id="library" level="project" name="commons-logging-1.2 (2)" />
+          <element id="library" level="project" name="spring-aop-5.2.3.RELEASE" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="book/web/Web" />
